@@ -1,1 +1,0 @@
-This file is placed in here soley to enable the airfoil-data folder to appear in the repository
