@@ -161,6 +161,14 @@ module blownWing
         xlabel("r/Rtip")
         ylabel("(normalized) induced velocity at rotor disk")
         legend(["axial velocity", "swirl velocity"]);
+        
+        T, Q = thrusttorque(rotor, sections, outputs)
+        
+        eff, CT, CQ = nondim(T, Q, Vinf, Omega, rho, rotor)
+        println("Efficiency = ", eff)
+        println("Thrust Coefficient = ", CT)
+
+
 
     end # calculatePropellerProperties
 

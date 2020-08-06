@@ -8,11 +8,14 @@ using PyPlot
 revise()
 
 # Developing the blownWing package and extracting the functions
-Pkg.develop(PackageSpec(path="/Users/markanderson/Box/FLOW-MCA/Code/blownWing"))
+Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/NonlinearLiftingLine"))
 import blownWing.generateWingGeometry
 import blownWing.generatePropellerWake
 import blownWing.solveBlownWing
 import blownWing.calculatePropellerProperties
+
+Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/VLMMCA"))
+import VLMMCA.VLM
 
 Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/makeAirfoil"))
 import makeAirfoil.naca
@@ -46,16 +49,30 @@ Rtip = 0.236 / 2
 numBlades = 4 # Four blades
 
 # Blade-wise properties
-r = [0.148, 0.254237, 0.381356, 0.508475, 0.635593, 0.762712, 0.889831, 0.99].*Rtip;
-chord = [9.88, 11.88, 15.59, 18.81, 19.55, 18.32, 13.96, 0.01].*Rtip*1e-3;
-theta = [35.0, 32.5, 26.5, 23.5, 19, 16.5, 14.0, 10.0].*pi/180;
+r_coarse = [0.148, 0.254237, 0.381356, 0.508475, 0.635593, 0.762712, 0.889831, 0.99]*Rtip;
+chord_coarse = [9.88, 11.88, 15.59, 18.81, 19.55, 18.32, 13.96, 0.01].*1e-3;
+theta_coarse = [35.0, 32.5, 26.5, 23.5, 19, 16.5, 14.0, 10.0].*pi/180;
+
+#-- Interpolating the blade-wise properties --#
+r = range(r_coarse[1],r_coarse[end],length = 100)
+chord = zeros(length(r),1)
+theta = similar(chord)
+
+for i = 1:length(r)
+    
+    chord[i] = akima(r_coarse,chord_coarse,r[i])
+    theta[i] = akima(r_coarse,theta_coarse,r[i])
+    
+end
 
 # Defining operating point
-J = 0.85
-rho = 1.225
-Vinf = 50
-Omega = 2*pi*Vinf / (J* 2 * Rtip)
-println(Omega)
+J = 0.85/2;
+J = 0.50
+rho = 1.225;
+D = 2*Rtip;
+Vinf = 10;
+n = Vinf / (J*D);
+Omega = 2*pi*n;
 
 calculatePropellerProperties(airfoilData,Rhub,Rtip,numBlades,r,chord,theta,J,rho,Vinf,Omega)
 
@@ -79,7 +96,11 @@ propellerWake = generatePropellerWake(wakeData,propDiameter,propPosition,wingGeo
 
 wakedFreestream = freestream .+ propellerWake
 
-#-- Running the solver --#
+#-- Running the Linear solver --#
+
+CL_VLM, CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(wingGeometry,wakedFreestream)
+
+#-- Running the Nonlinear solver --#
 
 CL, CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,wakedFreestream)
 
@@ -91,8 +112,9 @@ spancoords = convert(Array,data[1:end,1])
 unnormalizedLift = convert(Array,data[1:end,2])
 
 figure()
+plot(spanLocations./maximum(spanLocations),cl_VLM,label="VLM", color = "green", linestyle = "-", linewidth = 2)
 plot(spanLocations./maximum(spanLocations),cl,label="Strip Theory", color = "orange", linestyle = "--", linewidth = 3)
-plot(spancoords./maximum(spanLocations),unnormalizedLift,label="Veldhius Data", color = "black",marker = "o")
+plot(spancoords./maximum(spanLocations),unnormalizedLift,label="Veldhuis Data", color = "black",marker = "o")
 xlim(0,1)
 title("Veldhuis CL Comparison")
 legend()
