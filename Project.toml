@@ -2,3 +2,6 @@ name = "blownWing"
 uuid = "c0260a60-5209-4909-84ff-4a8872b7c7cf"
 authors = ["Mark-C-Anderson <anderson.mark.az@gmail.com>"]
 version = "0.1.0"
+
+[deps]
+AirfoilDatabase = "874188ba-a430-49f5-a1da-c5ba3c632279"

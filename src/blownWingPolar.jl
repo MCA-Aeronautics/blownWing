@@ -2,11 +2,9 @@ using Pkg
 Pkg.add("Revise")
 Pkg.add("CSV")
 Pkg.add("PyPlot")
-Pkg.add("FLOWMath")
 using Revise
 using CSV
 using PyPlot
-using FLOWMath
 revise()
 
 # Developing the blownWing package and extracting the functions
@@ -15,6 +13,7 @@ import blownWing.generateWingGeometry
 import blownWing.generatePropellerWake
 import blownWing.solveBlownWing
 import blownWing.calculatePropellerProperties
+import blownWing.createRBFS
 
 Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/VLMMCA"))
 import VLMMCA.VLM
@@ -32,7 +31,7 @@ coordinates = [0     0     0;
                0.240 0.640 0;
                0.240 0     0];
 
-numPanelsSpan = 100;
+numPanelsSpan = 200;
 
 wingGeometry = generateWingGeometry(coordinates, numPanelsSpan);
 numPanels = length(wingGeometry[:,1])
@@ -69,7 +68,7 @@ end
 
 # Defining operating point
 J = 0.85/2;
-J = 0.50
+J = 0.25
 rho = 1.225;
 D = 2*Rtip;
 Vinf = 10;
@@ -78,47 +77,59 @@ Omega = 2*pi*n;
 
 calculatePropellerProperties(airfoilData,Rhub,Rtip,numBlades,r,chord,theta,J,rho,Vinf,Omega)
 
-#-- Defining the freestream --#
-#Vinf = 10; # m/s
-alpha = 4; # degrees
-sideslipAngle = 0; # degrees
+# Generating the interpolation functions
+rbfs = createRBFS("/Users/markanderson/Box/FLOW-MCA/Code/NonlinearLiftingLine/airfoil-data/eduardo";)
 
-freestream = zeros(numPanels,3)
-for i = 1:numPanels
-    freestream[i,:] = [Vinf*cosd(alpha),0,Vinf*sind(alpha)]
+angles = 0:2:30 # angles of attack for polar
+CL_VLM = zeros(length(angles),1)
+CL_VLM_Waked = similar(CL_VLM)
+CL = similar(CL_VLM)
+CL_Waked = similar(CL_VLM)
+for i = 1:length(angles)
+
+    #-- Defining the freestream --#
+    #Vinf = 10; # m/s
+    alpha = angles[i] # degrees
+    sideslipAngle = 0; # degrees
+
+    freestream = zeros(numPanels,3)
+    for j = 1:numPanels
+        freestream[j,:] = [Vinf*cosd(alpha),0,Vinf*sind(alpha)]
+    end
+
+    #-- Defining the propeller wake --#
+
+    wakeData = CSV.read("Propeller Data/E212 Wake.csv");
+    propDiameter = 0.236; # meters
+    propPosition = 0.300; # meters
+
+    propellerWake = generatePropellerWake(wakeData,propDiameter,propPosition,wingGeometry);
+
+    # # Tilting the propellerWake according to the angle of attack (not necessary, the wing is flat in the 3D space)
+    # for j = 1:length(propellerWake[:,1])
+    #     propellerWake[j,:] = [propellerWake[j,1] * cosd(alpha), 0, propellerWake[j,3] * sind(alpha)]
+    # end
+
+    wakedFreestream = freestream .+ propellerWake;
+
+    #-- Running the Linear solver --#
+
+    CL_VLM[i], CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(wingGeometry,freestream)
+    CL_VLM_Waked[i], CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(wingGeometry,wakedFreestream)
+
+    #-- Running the Nonlinear solver --#
+
+    CL[i], CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,freestream,rbfs)
+    CL_Waked[i], CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,wakedFreestream,rbfs)
+
 end
 
-#-- Defining the propeller wake --#
-
-wakeData = CSV.read("Propeller Data/E212 Wake.csv");
-propDiameter = 0.236; # meters
-propPosition = 0.300; # meters
-
-propellerWake = generatePropellerWake(wakeData,propDiameter,propPosition,wingGeometry);
-
-wakedFreestream = freestream .+ propellerWake
-
-#-- Running the Linear solver --#
-
-CL_VLM, CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(wingGeometry,wakedFreestream)
-
-#-- Running the Nonlinear solver --#
-
-CL, CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,wakedFreestream)
-
-#-- Validating the results against wind tunnel data --#
-
-# Get the Veldhius data
-data = CSV.read("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/Validation Data/Veldhuis Propeller Data.csv")
-spancoords = convert(Array,data[1:end,1])
-unnormalizedLift = convert(Array,data[1:end,2])
-
 figure()
-plot(spanLocations./maximum(spanLocations),cl_VLM,label="VLM", color = "green", linestyle = "-", linewidth = 2)
-plot(spanLocations./maximum(spanLocations),cl,label="Strip Theory", color = "orange", linestyle = "--", linewidth = 3)
-plot(spancoords./maximum(spanLocations),unnormalizedLift,label="Veldhuis Data", color = "black",marker = "o")
-xlim(0,1)
-title("Veldhuis CL Comparison")
+plot(angles, CL_VLM, label = "VLM No Props", color = "green", linestyle = "--")
+plot(angles, CL_VLM_Waked, label = "VLM With Props", color = "green", linestyle = "-")
+plot(angles, CL, label = "Strip Theory No Props", color = "orange", linestyle = "--")
+plot(angles, CL_Waked, label = "Strip Theory With Props", color = "orange", linestyle = "-")
+xlabel("Angle of Attack (Degrees)")
+ylabel("CL")
+title("Veldhuis Wing Simulation")
 legend()
-xlabel("Span Location (2y/b)")
-ylabel("cl")

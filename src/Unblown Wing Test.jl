@@ -1,8 +1,3 @@
-using Pkg
-Pkg.add("Revise")
-Pkg.add("CSV")
-Pkg.add("PyPlot")
-Pkg.add("FLOWMath")
 using Revise
 using CSV
 using PyPlot
