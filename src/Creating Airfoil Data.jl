@@ -1,3 +1,5 @@
+using Pkg
+
 # Importing the necessary julia packages
 using Revise
 import CSV
