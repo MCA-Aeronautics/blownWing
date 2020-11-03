@@ -1,3 +1,4 @@
+using Pkg
 using Revise
 using CSV
 using PyPlot
@@ -5,16 +6,14 @@ using FLOWMath
 revise()
 
 # Developing the blownWing package and extracting the functions
-Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/NonlinearLiftingLine"))
 import blownWing.generateWingGeometry
 import blownWing.generatePropellerWake
 import blownWing.solveBlownWing
 import blownWing.calculatePropellerProperties
+import blownWing.createRBFS
 
-Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/VLMMCA"))
 import VLMMCA.VLM
 
-Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/makeAirfoil"))
 import makeAirfoil.naca
 
 #-- Defining the wing geometry --#
@@ -40,38 +39,38 @@ airfoil = cat(xcoords,ycoords,dims=2)
 airfoilName = "NACA642-015A"
 
 #-- Defining the propeller --#
-airfoilData = "/Users/markanderson/Box/FLOW-MCA/Code/blownWing/Propeller Data/E212 Propeller Data.dat"
-Rhub = 0.01
-Rtip = 0.236 / 2
-numBlades = 4 # Four blades
+# airfoilData = "/Users/markanderson/Box/FLOW-MCA/Code/blownWing/Propeller Data/E212 Propeller Data.dat"
+# Rhub = 0.01
+# Rtip = 0.236 / 2
+# numBlades = 4 # Four blades
 
-# Blade-wise properties
-r_coarse = [0.148, 0.254237, 0.381356, 0.508475, 0.635593, 0.762712, 0.889831, 0.99]*Rtip;
-chord_coarse = [9.88, 11.88, 15.59, 18.81, 19.55, 18.32, 13.96, 0.01].*1e-3;
-theta_coarse = [35.0, 32.5, 26.5, 23.5, 19, 16.5, 14.0, 10.0].*pi/180;
+# # Blade-wise properties
+# r_coarse = [0.148, 0.254237, 0.381356, 0.508475, 0.635593, 0.762712, 0.889831, 0.99]*Rtip;
+# chord_coarse = [9.88, 11.88, 15.59, 18.81, 19.55, 18.32, 13.96, 0.01].*1e-3;
+# theta_coarse = [35.0, 32.5, 26.5, 23.5, 19, 16.5, 14.0, 10.0].*pi/180;
 
-#-- Interpolating the blade-wise properties --#
-r = range(r_coarse[1],r_coarse[end],length = 100)
-chord = zeros(length(r),1)
-theta = similar(chord)
+# #-- Interpolating the blade-wise properties --#
+# r = range(r_coarse[1],r_coarse[end],length = 100)
+# chord = zeros(length(r),1)
+# theta = similar(chord)
 
-for i = 1:length(r)
+# for i = 1:length(r)
     
-    chord[i] = akima(r_coarse,chord_coarse,r[i])
-    theta[i] = akima(r_coarse,theta_coarse,r[i])
+#     chord[i] = akima(r_coarse,chord_coarse,r[i])
+#     theta[i] = akima(r_coarse,theta_coarse,r[i])
     
-end
+# end
 
 # Defining operating point
-J = 0.85/2;
-J = 0.50
-rho = 1.225;
-D = 2*Rtip;
-Vinf = 10;
-n = Vinf / (J*D);
-Omega = 2*pi*n;
+# J = 0.85/2;
+# J = 0.50
+# rho = 1.225;
+# D = 2*Rtip;
+# Vinf = 10;
+# n = Vinf / (J*D);
+# Omega = 2*pi*n;
 
-calculatePropellerProperties(airfoilData,Rhub,Rtip,numBlades,r,chord,theta,J,rho,Vinf,Omega)
+# calculatePropellerProperties(airfoilData,Rhub,Rtip,numBlades,r,chord,theta,J,rho,Vinf,Omega)
 
 #-- Defining the freestream --#
 #Vinf = 10; # m/s
@@ -85,21 +84,24 @@ end
 
 #-- Defining the propeller wake --#
 
-wakeData = CSV.read("Propeller Data/E212 Wake.csv");
-propDiameter = 0.236; # meters
-propPosition = 0.300; # meters
+# wakeData = CSV.read("Propeller Data/E212 Wake.csv");
+# propDiameter = 0.236; # meters
+# propPosition = 0.300; # meters
 
-propellerWake = generatePropellerWake(wakeData,propDiameter,propPosition,wingGeometry);
+# propellerWake = generatePropellerWake(wakeData,propDiameter,propPosition,wingGeometry);
 
-wakedFreestream = freestream .+ propellerWake
+# wakedFreestream = freestream .+ propellerWake
+
+# Creating the RBFS interpolation function
+rbfs = createRBFS("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/airfoil-data/NACA4415/");
 
 #-- Running the Linear solver --#
 
-CL_VLM, CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(wingGeometry,wakedFreestream)
+CL_VLM, CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(wingGeometry,freestream)
 
 #-- Running the Nonlinear solver --#
 
-CL, CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,wakedFreestream)
+CL, CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,freestream,rbfs)
 
 #-- Validating the results against wind tunnel data --#
 

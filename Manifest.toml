@@ -63,6 +63,12 @@ git-tree-sha1 = "aa9ef39b54a168c3df1b2911e7797e4feee50fbe"
 uuid = "0b7ba130-8d10-5ba8-a3d6-c5182647fed9"
 version = "1.14.3+1"
 
+[[CCBlade]]
+deps = ["FLOWMath", "Printf", "Test"]
+git-tree-sha1 = "647d56811e7a2e5ad81ead14c6ef4e7f75ac0a2f"
+uuid = "e1828068-15df-11e9-03e4-ef195ea46fa4"
+version = "0.2.1"
+
 [[CSSUtil]]
 deps = ["Colors", "Compat", "JSON", "Measures", "Pkg", "WebIO"]
 git-tree-sha1 = "ff13fd99e4dd54f56eb064815f843bc992a871a2"
@@ -80,6 +86,12 @@ deps = ["DataAPI", "Future", "JSON", "Missings", "Printf", "Statistics", "Struct
 git-tree-sha1 = "2ac27f59196a68070e132b25713f9a5bbc5fa0d2"
 uuid = "324d7699-5711-5eae-9e2f-1d82baa6b597"
 version = "0.8.3"
+
+[[CodeTracking]]
+deps = ["InteractiveUtils", "UUIDs"]
+git-tree-sha1 = "ce725fcc331618c422e5561a5183baab6a00482c"
+uuid = "da1fd8a2-8d9e-5ec2-8556-3022fb5608a2"
+version = "1.0.4"
 
 [[CodecZlib]]
 deps = ["BinaryProvider", "Libdl", "TranscodingStreams"]
@@ -204,6 +216,12 @@ git-tree-sha1 = "9143266ba77d3313a4cf61d8333a1970e8c5d8b6"
 uuid = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
 version = "0.2.4"
 
+[[FLOWMath]]
+deps = ["OffsetArrays"]
+git-tree-sha1 = "07e025ff756dacf9b4e318296a37aa36d2272348"
+uuid = "6cb5d3fb-0fe8-4cc2-bd89-9fe0b19a99d3"
+version = "0.3.0"
+
 [[FileIO]]
 deps = ["Pkg"]
 git-tree-sha1 = "992b4aeb62f99b69fcf0cb2085094494cc05dfb3"
@@ -269,10 +287,10 @@ uuid = "f67ccb44-e63f-5c2f-98bd-6dc0ccc4ba2f"
 version = "0.13.6"
 
 [[HDF5_jll]]
-deps = ["Libdl", "Pkg", "Zlib_jll"]
-git-tree-sha1 = "3dbc683172cb53428907485a4bb98a29d3874083"
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg", "Zlib_jll"]
+git-tree-sha1 = "bc9c3d43ffd4d8988bfa372b86d4bdbd26860e95"
 uuid = "0234f1f7-429e-5d53-9886-15a909be8d59"
-version = "1.10.5+6"
+version = "1.10.5+7"
 
 [[HTTP]]
 deps = ["Base64", "Dates", "IniFile", "MbedTLS", "Sockets"]
@@ -326,6 +344,12 @@ git-tree-sha1 = "15732c475062348b0165684ffe28e85ea8396afc"
 uuid = "41ab1584-1d38-5bbf-9106-f11c6c58b48f"
 version = "1.0.0"
 
+[[IterativeSolvers]]
+deps = ["LinearAlgebra", "Printf", "Random", "RecipesBase", "SparseArrays"]
+git-tree-sha1 = "3b7e2aac8c94444947facea7cc7ca91c49169be0"
+uuid = "42fd0dbc-a981-5370-80f2-aaf504508153"
+version = "0.8.4"
+
 [[IteratorInterfaceExtensions]]
 git-tree-sha1 = "a3f24677c21f5bbe9d2a714f95dcd58337fb2856"
 uuid = "82899510-4779-5014-852e-03e436cf321d"
@@ -360,6 +384,12 @@ git-tree-sha1 = "a19da3e8b971e65d4859ee13bfae8a06df5681f4"
 uuid = "a93385a2-3734-596a-9a66-3cfbb77141e6"
 version = "0.13.0"
 
+[[JuliaInterpreter]]
+deps = ["CodeTracking", "InteractiveUtils", "Random", "UUIDs"]
+git-tree-sha1 = "8f1c59bbca30b0d293f4b2436af49ef4c9c4d601"
+uuid = "aa1ae85d-cabe-5617-a682-6adf51b2e16a"
+version = "0.8.2"
+
 [[Knockout]]
 deps = ["JSExpr", "JSON", "Observables", "Test", "WebIO"]
 git-tree-sha1 = "8b5552a7a9efc2b0565e2256c919651e6f4e7931"
@@ -391,6 +421,12 @@ uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 [[Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
+[[LoweredCodeUtils]]
+deps = ["JuliaInterpreter"]
+git-tree-sha1 = "92b9819125eac5013c99070f696ec0ec5fc66436"
+uuid = "6f1432cf-f94c-5a45-995e-cdbf5db27b0b"
+version = "1.2.4"
+
 [[Lz4_jll]]
 deps = ["Libdl", "Pkg"]
 git-tree-sha1 = "51b1db0732bbdcfabb60e36095cc3ed9c0016932"
@@ -414,10 +450,10 @@ uuid = "739be429-bea8-5141-9913-cc70e7f3736d"
 version = "1.0.2"
 
 [[MbedTLS_jll]]
-deps = ["Libdl", "Pkg"]
-git-tree-sha1 = "c0b1286883cac4e2b617539de41111e0776d02e8"
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
+git-tree-sha1 = "0eef589dd1c26a3ac9d753fe1a8bcad63f956fa6"
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
-version = "2.16.8+0"
+version = "2.16.8+1"
 
 [[Measures]]
 git-tree-sha1 = "e498ddeee6f9fdb4551ce855a46f54dbd900245f"
@@ -449,6 +485,12 @@ version = "0.7.1"
 git-tree-sha1 = "c84c576296d0e2fbb3fc134d3e09086b3ea617cd"
 uuid = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
 version = "0.3.4"
+
+[[NonlinearLiftingLine]]
+deps = ["CSV", "FLOWMath", "JuliaDB", "LinearAlgebra", "PyPlot", "VLMMCA", "Xfoil", "makeAirfoil"]
+path = "/Users/markanderson/.julia/dev/NonlinearLiftingLine"
+uuid = "cf325f74-95e9-408e-a967-c66f4272e779"
+version = "0.1.0"
 
 [[Nullables]]
 deps = ["Compat"]
@@ -591,6 +633,12 @@ git-tree-sha1 = "28faf1c963ca1dc3ec87f166d92982e3c4a1f66d"
 uuid = "ae029012-a4dd-5104-9daa-d747884805df"
 version = "1.1.0"
 
+[[Revise]]
+deps = ["CodeTracking", "Distributed", "FileWatching", "JuliaInterpreter", "LibGit2", "LoweredCodeUtils", "OrderedCollections", "Pkg", "REPL", "UUIDs", "Unicode"]
+git-tree-sha1 = "b520a7f1a34326c8b5dd23947a71f24f5bb3657b"
+uuid = "295af30f-e4ad-537b-8983-00126c2a3abe"
+version = "3.1.3"
+
 [[Roots]]
 deps = ["Printf"]
 git-tree-sha1 = "1211c7c1928c1ed29cdcef65979b7a791e3b9fbe"
@@ -719,6 +767,11 @@ uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 [[Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 
+[[VLMMCA]]
+path = "/Users/markanderson/.julia/dev/VLMMCA"
+uuid = "8baf1d39-669d-4b9f-a3f4-ec4809193160"
+version = "0.1.0"
+
 [[VersionParsing]]
 git-tree-sha1 = "80229be1f670524750d905f8fc8148e5a8c4537f"
 uuid = "81def892-9a0e-5fdd-b105-ffc91e053289"
@@ -762,7 +815,9 @@ version = "2.9.10+3"
 
 [[Xfoil]]
 deps = ["Printf", "xfoil_light_jll"]
-path = "../../../../.julia/dev/Xfoil"
+git-tree-sha1 = "270d29dccfcbb706f23df37145741bbb397ed672"
+repo-rev = "master"
+repo-url = "https://github.com/byuflowlab/Xfoil.jl"
 uuid = "19641d66-a62d-11e8-2441-8f57a969a9c4"
 version = "0.4.0"
 
@@ -777,6 +832,11 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "6f1abcb0c44f184690912aa4b0ba861dd64f11b9"
 uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
 version = "1.4.5+2"
+
+[[makeAirfoil]]
+path = "/Users/markanderson/.julia/dev/makeAirfoil"
+uuid = "e67f8722-8940-478f-95ae-be8f1b226cb6"
+version = "0.1.0"
 
 [[xfoil_light_jll]]
 deps = ["CompilerSupportLibraries_jll", "Libdl", "Pkg"]

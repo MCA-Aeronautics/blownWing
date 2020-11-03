@@ -2,15 +2,15 @@ module blownWing
 
     using Pkg
     Pkg.add("Revise"); using Revise; revise()
-    Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/VLMMCA"))
+    #Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/VLMMCA"))
     import VLMMCA.generatePanels
 
-    Pkg.develop(PackageSpec(path="/Users/markanderson/Box/FLOW-MCA/Code/NonlinearLiftingLine/"))
+    #Pkg.develop(PackageSpec(path="/Users/markanderson/Box/FLOW-MCA/Code/NonlinearLiftingLine/"))
     import NonlinearLiftingLine.NLL
 
-    Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/makeAirfoil"))
+    #Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/makeAirfoil"))
 
-    Pkg.develop(PackageSpec(url="https://github.com/byuflowlab/CCBlade.jl"))
+    #Pkg.develop(PackageSpec(url="https://github.com/byuflowlab/CCBlade.jl"))
     Pkg.add("CCBlade")
     using CCBlade
 
