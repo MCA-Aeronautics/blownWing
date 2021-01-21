@@ -41,6 +41,9 @@ module blownWing
     import Statistics
     import IterativeSolvers
 
+    Pkg.add("DataFrames")
+    using DataFrames
+
     function createRBFS(database_path)
 
         # Some of Eduardo's code
@@ -72,7 +75,8 @@ module blownWing
 
         # This section just extracts all of the data from the files and feeds it into the generate_RBF() function
 
-        for file in [:clfile, :cdfile, :cmfile]  # Iterate over each file
+        # for file in [:clfile, :cdfile, :cmfile]  # Iterate over each file
+        for file in [:clfile]
             
             Xp = Array{Float64, 1}[]
             val = Float64[]
@@ -89,7 +93,9 @@ module blownWing
                 filename = row[colheader]   # File to read
 
                 # Read data in file
-                data = CSV.read(joinpath(database_path, adb.DIRS[file], filename))
+                # println(joinpath(database_path, adb.DIRS[file], filename))
+                # You may need to run `using CSV; using DataFrames;` in the REPL before this next line will work
+                data = CSV.read(joinpath(database_path, adb.DIRS[file], filename),DataFrame)
                 
                 for drow in eachrow(data) # Iterate over rows in the data
                     this_Xp = Float64[ax != :alpha ? row[Symbol(adb.FIELD2_HEADER[ax])] : drow[1] for ax in rbf_axes]

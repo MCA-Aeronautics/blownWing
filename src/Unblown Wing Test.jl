@@ -4,6 +4,7 @@ using CSV
 using PyPlot
 using FLOWMath
 revise()
+pyplot()
 
 # Developing the blownWing package and extracting the functions
 import blownWing.generateWingGeometry
@@ -32,11 +33,11 @@ wingGeometry = generateWingGeometry(coordinates, numPanelsSpan);
 numPanels = length(wingGeometry[:,1])
 
 #-- Defining the airfoil --#
-data = CSV.read("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/airfoil-data/NACA642-015A Coordinates.csv")
-xcoords = convert(Array,data[1:end,1])
-ycoords = convert(Array,data[1:end,2])
-airfoil = cat(xcoords,ycoords,dims=2)
-airfoilName = "NACA642-015A"
+# data = CSV.read("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/airfoil-data/NACA642-015A Coordinates.csv")
+# xcoords = convert(Array,data[1:end,1])
+# ycoords = convert(Array,data[1:end,2])
+# airfoil = cat(xcoords,ycoords,dims=2)
+# airfoilName = "NACA642-015A"
 
 #-- Defining the propeller --#
 # airfoilData = "/Users/markanderson/Box/FLOW-MCA/Code/blownWing/Propeller Data/E212 Propeller Data.dat"
@@ -73,7 +74,7 @@ airfoilName = "NACA642-015A"
 # calculatePropellerProperties(airfoilData,Rhub,Rtip,numBlades,r,chord,theta,J,rho,Vinf,Omega)
 
 #-- Defining the freestream --#
-#Vinf = 10; # m/s
+Vinf = 10; # m/s
 alpha = 4; # degrees
 sideslipAngle = 0; # degrees
 
@@ -93,7 +94,7 @@ end
 # wakedFreestream = freestream .+ propellerWake
 
 # Creating the RBFS interpolation function
-rbfs = createRBFS("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/airfoil-data/NACA4415/");
+rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA4415");
 
 #-- Running the Linear solver --#
 
@@ -101,19 +102,21 @@ CL_VLM, CDi_near_VLM, cl_VLM, cd_near_VLM, spanLocations, GammaValues_VLM = VLM(
 
 #-- Running the Nonlinear solver --#
 
+airfoil = 1; # Filler value, doesn't do anything (I think)
+airfoilName = "Airfoil Name"; # Also a filler value
 CL, CDi, cl, spanLocations = solveBlownWing(wingGeometry,airfoil,airfoilName,freestream,rbfs)
 
 #-- Validating the results against wind tunnel data --#
 
 # Get the Veldhius data
-data = CSV.read("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/Validation Data/Veldhuis Propeller Data.csv")
-spancoords = convert(Array,data[1:end,1])
-unnormalizedLift = convert(Array,data[1:end,2])
+# data = CSV.read("/Users/markanderson/Box/FLOW-MCA/Code/blownWing/Validation Data/Veldhuis Propeller Data.csv")
+# spancoords = convert(Array,data[1:end,1])
+# unnormalizedLift = convert(Array,data[1:end,2])
 
 figure()
 plot(spanLocations./maximum(spanLocations),cl_VLM,label="VLM", color = "green", linestyle = "-", linewidth = 2)
 plot(spanLocations./maximum(spanLocations),cl,label="Strip Theory", color = "orange", linestyle = "--", linewidth = 3)
-plot(spancoords./maximum(spanLocations),unnormalizedLift,label="Veldhuis Data", color = "black",marker = "o")
+#plot(spancoords./maximum(spanLocations),unnormalizedLift,label="Veldhuis Data", color = "black",marker = "o")
 xlim(0,1)
 title("Veldhuis CL Comparison")
 legend()
