@@ -17,7 +17,7 @@ adb = AirfoilDatabase
 
 # macro for bash commands?
 # Defining the database
-database_path = "airfoil-data/NACA4415"
+database_path = "airfoil-data/NACA23018"
 adb.new_database(database_path)
 
 # # Defining the airfoil and flow conditions
@@ -35,10 +35,10 @@ adb.new_database(database_path)
 # # Adding the polar to the database
 # adb.new_entry(polar; database_path=database_path, airfoilname = "NACA 4415");
 
-airfoil_file = "airfoil-data/NACA4415.csv"
+airfoil_file = "airfoil-data/NACA23018.csv"
 
 alphas = [i for i in -30:1.0:30]
-Res = 1e5:1e5:5e6
+Res = 4e6:1e5:8e6
 Ma = 0
 ncrit = 9
 
@@ -56,7 +56,7 @@ for Re in Res
 
     # Viterna extrapolation
     println("Extrapolating...")
-    polar = ap.extrapolate(polar,0.0;AR = 5) # CDmax = 0 as a dummy guess because CDmax is calculated from AR
+    polar = ap.extrapolate(polar,0.0;AR = 10) # CDmax = 0 as a dummy guess because CDmax is calculated from AR
     println("Done extrapolating!")
     
     # Add the newly-created polar to the database
@@ -65,10 +65,10 @@ for Re in Res
 end
 
 # Defining the things we're looking for
-pathToData = "airfoil-data/NACA4415"
-airfoilName = "NACA4415"
+pathToData = "airfoil-data/NACA23018"
+airfoilName = "NACA23018"
 resultType = "Cl"
-ReynoldsNumber = 100000
+ReynoldsNumber = 5000000
 machNumber = 0
 ncrit = 9
 

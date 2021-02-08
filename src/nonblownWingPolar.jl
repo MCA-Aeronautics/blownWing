@@ -40,7 +40,7 @@ numPanels = length(wingGeometry[:,1])
 
 # Generating the interpolation functions
 # This next line can be commented out after it has run once in the current session
-#rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA4415/");
+rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA4415/");
 
 airfoilName = "NACA4415";
 airfoil = "Filler";
