@@ -834,8 +834,6 @@ version = "2.9.10+3"
 [[Xfoil]]
 deps = ["Printf", "xfoil_light_jll"]
 git-tree-sha1 = "270d29dccfcbb706f23df37145741bbb397ed672"
-repo-rev = "master"
-repo-url = "https://github.com/byuflowlab/Xfoil.jl"
 uuid = "19641d66-a62d-11e8-2441-8f57a969a9c4"
 version = "0.4.0"
 
@@ -852,6 +850,7 @@ uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
 version = "1.4.5+2"
 
 [[makeAirfoil]]
+deps = ["Pkg"]
 path = "/Users/markanderson/.julia/dev/makeAirfoil"
 uuid = "e67f8722-8940-478f-95ae-be8f1b226cb6"
 version = "0.1.0"

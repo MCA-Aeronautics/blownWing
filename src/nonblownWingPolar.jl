@@ -40,12 +40,12 @@ numPanels = length(wingGeometry[:,1])
 
 # Generating the interpolation functions
 # This next line can be commented out after it has run once in the current session
-rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA4415/");
+rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA23018/");
 
-airfoilName = "NACA4415";
+airfoilName = "NACA23018";
 airfoil = "Filler";
 
-angles = 0:1:30 # angles of attack for polar
+angles = 0:5:40 # angles of attack for polar
 CL_VLM = zeros(length(angles),1)
 CL_VLM_Waked = similar(CL_VLM)
 CL = similar(CL_VLM)

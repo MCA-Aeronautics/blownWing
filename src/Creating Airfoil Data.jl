@@ -38,7 +38,7 @@ adb.new_database(database_path)
 airfoil_file = "airfoil-data/NACA23018.csv"
 
 alphas = [i for i in -30:1.0:30]
-Res = 4e6:1e5:8e6
+Res = 1e5:1e5:8e6
 Ma = 0
 ncrit = 9
 
@@ -60,7 +60,7 @@ for Re in Res
     println("Done extrapolating!")
     
     # Add the newly-created polar to the database
-    adb.new_entry(polar; database_path = database_path, airfoilname = "NACA 4415", warn = false)
+    adb.new_entry(polar; database_path = database_path, airfoilname = "NACA 23018", warn = false)
     
 end
 
@@ -68,7 +68,7 @@ end
 pathToData = "airfoil-data/NACA23018"
 airfoilName = "NACA23018"
 resultType = "Cl"
-ReynoldsNumber = 5000000
+ReynoldsNumber = 6000000
 machNumber = 0
 ncrit = 9
 
@@ -80,7 +80,8 @@ filename = string(pathToData,"/",resultType,"/",
                   "ma",machNumber,"p0-",
                   "ncrit",ncrit,"p0-0.csv")
 
-data = CSV.read(filename)
+using DataFrames
+data = CSV.read(filename, DataFrame)
 
 data = Matrix(data)
 

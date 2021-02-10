@@ -1,7 +1,6 @@
 module blownWing
 
-    using Pkg
-    Pkg.add("Revise"); using Revise; revise()
+    using Revise; revise()
     #Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/VLMMCA"))
     import VLMMCA.generatePanels
 
@@ -11,19 +10,19 @@ module blownWing
     #Pkg.develop(PackageSpec(url="https://github.com/Mark-C-Anderson/makeAirfoil"))
 
     #Pkg.develop(PackageSpec(url="https://github.com/byuflowlab/CCBlade.jl"))
-    Pkg.add("CCBlade")
+    #Pkg.add("CCBlade")
     using CCBlade
 
-    Pkg.add("FLOWMath")
+    #Pkg.add("FLOWMath")
     using FLOWMath
 
-    Pkg.add("CSV")
+    #Pkg.add("CSV")
     using CSV
 
-    Pkg.add("Tables")
+    #Pkg.add("Tables")
     using Tables
 
-    Pkg.add("PyPlot")
+    #Pkg.add("PyPlot")
     using PyPlot
 
     # Eduardo's stuff
@@ -36,12 +35,12 @@ module blownWing
     import JuliaDB
     jdb = JuliaDB
 
-    Pkg.add("Statistics")
-    Pkg.add("IterativeSolvers")
+    #Pkg.add("Statistics")
+    #Pkg.add("IterativeSolvers")
     import Statistics
     import IterativeSolvers
 
-    Pkg.add("DataFrames")
+    #Pkg.add("DataFrames")
     using DataFrames
 
     function createRBFS(database_path)
