@@ -1,8 +1,4 @@
 Airfoil,Re,Mach,Panels,Ncrit,Degrees,xy file,Cl file,Cd file,Cm file,xupsep file,xlosep file,Differentiator
-NACA 23018,100000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re100000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re100000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re100000-ma0p0-ncrit9p0-0.csv, , ,0
-NACA 23018,200000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re200000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re200000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re200000-ma0p0-ncrit9p0-0.csv, , ,0
-NACA 23018,300000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re300000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re300000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re300000-ma0p0-ncrit9p0-0.csv, , ,0
-NACA 23018,400000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re400000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re400000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re400000-ma0p0-ncrit9p0-0.csv, , ,0
 NACA 23018,500000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re500000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re500000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re500000-ma0p0-ncrit9p0-0.csv, , ,0
 NACA 23018,600000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re600000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re600000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re600000-ma0p0-ncrit9p0-0.csv, , ,0
 NACA 23018,700000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re700000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re700000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re700000-ma0p0-ncrit9p0-0.csv, , ,0

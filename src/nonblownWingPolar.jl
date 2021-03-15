@@ -29,9 +29,9 @@ import makeAirfoil.naca
 # units are in meters
 
 coordinates = [0     0     0;
-               0     0.500 0;
-               0.083 0.500 0;
-               0.083 0     0];
+               0.051 0.500 0;
+               0.100 0.500 0;
+               0.151 0     0];
 
 numPanelsSpan = 50;
 
@@ -45,7 +45,7 @@ rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA230
 airfoilName = "NACA23018";
 airfoil = "Filler";
 
-angles = 0:5:40 # angles of attack for polar
+angles = 0:1:30 # angles of attack for polar
 CL_VLM = zeros(length(angles),1)
 CL_VLM_Waked = similar(CL_VLM)
 CL = similar(CL_VLM)

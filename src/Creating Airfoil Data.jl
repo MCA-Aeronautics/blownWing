@@ -1,4 +1,4 @@
-# using Pkg
+            # using Pkg
 
 # Importing the necessary julia packages
 # using Revise
@@ -38,7 +38,7 @@ adb.new_database(database_path)
 airfoil_file = "airfoil-data/NACA23018.csv"
 
 alphas = [i for i in -30:1.0:30]
-Res = 1e5:1e5:8e6
+Res = 5e5:1e5:8e6
 Ma = 0
 ncrit = 9
 
@@ -58,6 +58,8 @@ for Re in Res
     println("Extrapolating...")
     polar = ap.extrapolate(polar,0.0;AR = 10) # CDmax = 0 as a dummy guess because CDmax is calculated from AR
     println("Done extrapolating!")
+
+    # println(ap.get_cl(polar))
     
     # Add the newly-created polar to the database
     adb.new_entry(polar; database_path = database_path, airfoilname = "NACA 23018", warn = false)
