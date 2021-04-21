@@ -29,9 +29,9 @@ import makeAirfoil.naca
 # units are in meters
 
 coordinates = [0     0     0;
-               0.051 0.500 0;
-               0.100 0.500 0;
-               0.151 0     0];
+               0.050 0.492 0;
+               0.098 0.492 0;
+               0.149 0     0];
 
 numPanelsSpan = 50;
 
@@ -40,12 +40,13 @@ numPanels = length(wingGeometry[:,1])
 
 # Generating the interpolation functions
 # This next line can be commented out after it has run once in the current session
-rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA23018/");
+rbfs = createRBFS("/Users/markanderson/.julia/dev/blownWing/airfoil-data/NACA4415/");
 
-airfoilName = "NACA23018";
+airfoilName = "NACA4415";
+println(airfoilName)
 airfoil = "Filler";
 
-angles = 0:1:30 # angles of attack for polar
+angles = vcat(0:4:20,21:1:30) # angles of attack for polar
 CL_VLM = zeros(length(angles),1)
 CL_VLM_Waked = similar(CL_VLM)
 CL = similar(CL_VLM)
@@ -53,7 +54,7 @@ CL_Waked = similar(CL_VLM)
 for i = 1:length(angles)
 
     #-- Defining the freestream --#
-    Vinf = 10; # m/s
+    Vinf = 533; # m/s
     alpha = angles[i] # degrees
     sideslipAngle = 0; # degrees
 
@@ -83,6 +84,8 @@ for i = 1:length(angles)
     #touch(filename)
 
     CSV.write(filename,data)
+
+    println("CL = ",CL[i])
 
 end
 

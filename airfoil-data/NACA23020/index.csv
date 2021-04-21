@@ -1,0 +1,14 @@
+Airfoil,Re,Mach,Panels,Ncrit,Degrees,xy file,Cl file,Cd file,Cm file,xupsep file,xlosep file,Differentiator
+NACA 23018,100000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re100000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re100000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re100000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,400000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re400000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re400000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re400000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,700000.0,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re700000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re700000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re700000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,1.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re1000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re1000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re1000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,2.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re2000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re2000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re2000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,3.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re3000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re3000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re3000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,4.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re4000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re4000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re4000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,5.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re5000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re5000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re5000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,6.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re6000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re6000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re6000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,7.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re7000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re7000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re7000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,8.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re8000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re8000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re8000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,9.0e6,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re9000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re9000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re9000000-ma0p0-ncrit9p0-0.csv, , ,0
+NACA 23018,1.0e7,0.0,160,9.0,true,NACA23018-npanels160-0.csv,NACA23018-Cl-re10000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cd-re10000000-ma0p0-ncrit9p0-0.csv,NACA23018-Cm-re10000000-ma0p0-ncrit9p0-0.csv, , ,0
